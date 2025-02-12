@@ -1,0 +1,19 @@
+﻿<Window x:Class="celloveszetWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Céllövészet" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="dgCellovok" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0"
+                  VerticalAlignment="Top" Width="760" AutoGenerateColumns="True"/>
+
+        <StackPanel Orientation="Vertical" Margin="10,220,0,0">
+            <TextBox x:Name="tbNev" Width="200" PlaceholderText="Név"/>
+            <TextBox x:Name="tbLoves1" Width="200" PlaceholderText="1. Lövés"/>
+            <TextBox x:Name="tbLoves2" Width="200" PlaceholderText="2. Lövés"/>
+            <TextBox x:Name="tbLoves3" Width="200" PlaceholderText="3. Lövés"/>
+            <TextBox x:Name="tbLoves4" Width="200" PlaceholderText="4. Lövés"/>
+            <Button Content="Hozzáad" Width="200" Click="Hozzaad_Click"/>
+            <Button Content="Mentés" Width="200" Click="Mentes_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
