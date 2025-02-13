@@ -1,9 +1,7 @@
-﻿using celloveszetWPF.ViewModels;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace celloveszetWPF
 {
@@ -21,34 +20,92 @@ namespace celloveszetWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CelloveszetViewModel viewModel;
-
+        public static List<Cellovo> cellovok = new List<Cellovo>;
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = new CelloveszetViewModel();
-            dgCellovok.ItemsSource = viewModel.GetCellovok();
+
+            StreamReader sr = new StreamReader("lovesek1.csv");
+            while (!sr.EndOfStream)
+            {
+                cellovok.Add(new Cellovo(sr.ReadLine()));
+            }
+            sr.Close();
+
+            dataGrid1.ItemsSource = cellovok;
+            dataGrid1.Items.Refresh();
         }
 
-        private void Hozzaad_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(tbLoves1.Text, out int loves1) &&
-                int.TryParse(tbLoves2.Text, out int loves2) &&
-                int.TryParse(tbLoves3.Text, out int loves3) &&
-                int.TryParse(tbLoves4.Text, out int loves4))
+            bool error = false;
+
+            try
             {
-                viewModel.HozzaadUjCellovo(tbNev.Text, loves1, loves2, loves3, loves4);
+                if (tbxName.Text == "")
+                {
+                    error = true;
+                    MessageBox.Show("The name field cannot be empty!");
+                }
+
+                if (int.Parse(tbxShot1.Text) < 0 || int.Parse(tbxShot1.Text) > 99)
+                {
+                    error = true;
+                    MessageBox.Show("The result must be between 0 and 99!");
+                }
+
+                if (int.Parse(tbxShot2.Text) < 0 || int.Parse(tbxShot2.Text) > 99)
+                {
+                    error = true;
+                    MessageBox.Show("The result must be between 0 and 99!");
+                }
+                if (int.Parse(tbxShot3.Text) < 0 || int.Parse(tbxShot3.Text) > 99)
+                {
+                    error = true;
+                    MessageBox.Show("The result must be between 0 and 99!");
+                }
+                if (int.Parse(tbxShot4.Text) < 0 || int.Parse(tbxShot4.Text) > 99)
+                {
+                    error = true;
+                    MessageBox.Show("The result must be between 0 and 99!");
+                }
+
             }
-            else
+            catch
             {
-                MessageBox.Show("Csak számokat írj be!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                error = true;
+                MessageBox.Show("Invalid data input!");
             }
+
+            if (error == false)
+            {
+                cellovok.Add(new Cellovo(line: $"{tbxName.Text};{tbxShot1.Text};{tbxShot2.Text};{tbxShot3.Text};{tbxShot4.Text}"));
+            }
+
+            dataGrid1.Items.Refresh();
         }
 
-        private void Mentes_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.MentesFajlba();
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("shots2.csv"))
+                {
+                    foreach (var item in dataGrid1.Items)
+                    {
+                        if (item is Cellovo shooter)
+                        {
+                            sw.WriteLine(shooter.ToString());
+                        }
+                    }
+                }
+
+                MessageBox.Show("The save was successful!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
-

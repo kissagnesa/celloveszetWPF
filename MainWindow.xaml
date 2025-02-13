@@ -1,19 +1,29 @@
 ﻿<Window x:Class="celloveszetWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Céllövészet" Height="450" Width="800">
-    <Grid>
-        <DataGrid x:Name="dgCellovok" HorizontalAlignment="Left" Height="200" Margin="10,10,0,0"
-                  VerticalAlignment="Top" Width="760" AutoGenerateColumns="True"/>
-
-        <StackPanel Orientation="Vertical" Margin="10,220,0,0">
-            <TextBox x:Name="tbNev" Width="200" PlaceholderText="Név"/>
-            <TextBox x:Name="tbLoves1" Width="200" PlaceholderText="1. Lövés"/>
-            <TextBox x:Name="tbLoves2" Width="200" PlaceholderText="2. Lövés"/>
-            <TextBox x:Name="tbLoves3" Width="200" PlaceholderText="3. Lövés"/>
-            <TextBox x:Name="tbLoves4" Width="200" PlaceholderText="4. Lövés"/>
-            <Button Content="Hozzáad" Width="200" Click="Hozzaad_Click"/>
-            <Button Content="Mentés" Width="200" Click="Mentes_Click"/>
-        </StackPanel>
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:celloveszetWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="571" Width="1065">
+    <Grid Margin="0,-217,61,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="288*"/>
+            <ColumnDefinition Width="203*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dataGrid1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="14,232,398,10" Grid.ColumnSpan="3"/>
+        <Label Grid.Column="2" Content="Név:" HorizontalAlignment="Left" Margin="77,239,0,0" VerticalAlignment="Top" Width="67" Height="26"/>
+        <Label Grid.Column="2" Content="Első lövés:" HorizontalAlignment="Left" Margin="77,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.205,0.057" Height="26" Width="64"/>
+        <Label Grid.Column="2" Content="Második lövés:" HorizontalAlignment="Left" Margin="77,291,0,0" VerticalAlignment="Top" Height="26" Width="88"/>
+        <Label Grid.Column="2" Content="Harmadik lövés:" HorizontalAlignment="Left" Margin="77,317,0,0" VerticalAlignment="Top" Height="26" Width="94"/>
+        <Label Grid.Column="2" Content="Negyedik lövés:" HorizontalAlignment="Left" Margin="77,343,0,0" VerticalAlignment="Top" Height="26" Width="93"/>
+        <TextBox x:Name="tbxName" Grid.Column="2" HorizontalAlignment="Left" Margin="187,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tbxShot1" Grid.Column="2" HorizontalAlignment="Left" Margin="187,265,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tbxShot2" Grid.Column="2" HorizontalAlignment="Left" Margin="187,291,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tbxShot3" Grid.Column="2" HorizontalAlignment="Left" Margin="187,317,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tbxShot4" Grid.Column="2" HorizontalAlignment="Left" Margin="187,343,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <Button x:Name="btnAdd" Grid.Column="2" Content="Hozzáad" HorizontalAlignment="Left" Margin="187,386,0,0" VerticalAlignment="Top" Width="120" Height="20" Click="btnAdd_Click"/>
+        <Button x:Name="btnSave" Grid.Column="2" Content="Mentés" HorizontalAlignment="Left" Margin="187,421,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.067,-0.059" Width="120" Height="20" Click="btnSave_Click"/>
     </Grid>
 </Window>
