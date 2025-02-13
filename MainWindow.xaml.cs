@@ -20,19 +20,19 @@ namespace celloveszetWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static List<Cellovo> cellovok = new List<Cellovo>;
+        public static List<Shooter> shooters = new List<Shooter>();
         public MainWindow()
         {
             InitializeComponent();
 
-            StreamReader sr = new StreamReader("lovesek1.csv");
+            StreamReader sr = new StreamReader("lovesek.csv");
             while (!sr.EndOfStream)
             {
-                cellovok.Add(new Cellovo(sr.ReadLine()));
+                shooters.Add(new Shooter(sr.ReadLine()));
             }
             sr.Close();
 
-            dataGrid1.ItemsSource = cellovok;
+            dataGrid1.ItemsSource = shooters;
             dataGrid1.Items.Refresh();
         }
 
@@ -79,7 +79,7 @@ namespace celloveszetWPF
 
             if (error == false)
             {
-                cellovok.Add(new Cellovo(line: $"{tbxName.Text};{tbxShot1.Text};{tbxShot2.Text};{tbxShot3.Text};{tbxShot4.Text}"));
+                shooters.Add(new Shooter($"{tbxName.Text};{tbxShot1.Text};{tbxShot2.Text};{tbxShot3.Text};{tbxShot4.Text}"));
             }
 
             dataGrid1.Items.Refresh();
@@ -93,7 +93,7 @@ namespace celloveszetWPF
                 {
                     foreach (var item in dataGrid1.Items)
                     {
-                        if (item is Cellovo shooter)
+                        if (item is Shooter shooter)
                         {
                             sw.WriteLine(shooter.ToString());
                         }

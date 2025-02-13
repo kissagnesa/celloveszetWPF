@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace celloveszetWPF
 {
-    internal class Cellovo
+    public class Shooter
     {
         public string name { get; private set; }
         public int shot1 { get; private set; }
@@ -31,9 +32,9 @@ namespace celloveszetWPF
             return averageShot;
         }
 
-        public Cellovo(string line)
+        public Shooter(string line)
         {
-            string[] data = line.Split(";");
+            string[] data = line.Split(';');
             this.name = data[0];
             this.shot1 = int.Parse(data[1]);
             this.shot2 = int.Parse(data[2]);
@@ -41,7 +42,7 @@ namespace celloveszetWPF
             this.shot4 = int.Parse(data[4]);
         }
 
-        public Cellovo(string name, int shot1, int shot2, int shot3, int shot4)
+        public Shooter(string name, int shot1, int shot2, int shot3, int shot4)
         {
             this.name = name;
             this.shot1 = shot1;
@@ -56,4 +57,3 @@ namespace celloveszetWPF
         }
     }
 }
-
